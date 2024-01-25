@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/', getPosts)
-router.post('/1', creatPost)
+router.post('/', creatPost)
 
 
 export default router;

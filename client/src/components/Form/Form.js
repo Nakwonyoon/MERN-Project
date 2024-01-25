@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import FileBase from "react-file-base64";
-import useStyles from "./styles";
+import React, { useState } from "react"; // useState hook
+import { TextField, Button, Typography, Paper } from "@material-ui/core"; // Material UI components
+import FileBase from "react-file-base64"; // FileBase64 is a react component that allows you to base64 encode files from a user's computer before uploading to a server.
+import { useDispatch } from "react-redux"; // useDispatch hook
+import { createPost } from "../../actions/posts"; // actions/posts.js 
+
+import useStyles from "./styles"; // styles.js
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -11,10 +14,13 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
-  const classes = useStyles();
+  const classes = useStyles(); // useStyles hook
+  const dispatch = useDispatch(); // useDispatch hook
 
-  const handlefunction = () => {
-    console.log("handlefunction");
+  const handlefunction = (e) => {
+    e.preventDefault(); // prevent the page from refreshing
+    dispatch(createPost(postData)); // dispatch the createPost action
+    
   };
   const clear = () => {
     console.log("clear");
@@ -22,7 +28,7 @@ const Form = () => {
 
   return (
     <Paper className={classes.paper}>
-      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handlefunction()} >
+      <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={(e) => handlefunction(e)} >
             <Typography variant="h6">Creating a Memory</Typography>
             <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value }) }/>
             <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value }) } />
