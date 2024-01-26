@@ -1,12 +1,16 @@
-import React, { useState } from "react"; // useState hook
+import React, { useState, useEffect } from "react"; // useState hook
 import { TextField, Button, Typography, Paper } from "@material-ui/core"; // Material UI components
 import FileBase from "react-file-base64"; // FileBase64 is a react component that allows you to base64 encode files from a user's computer before uploading to a server.
-import { useDispatch } from "react-redux"; // useDispatch hook
-import { createPost } from "../../actions/posts"; // actions/posts.js 
+import { useDispatch , useSelector } from "react-redux"; // useDispatch hook
+import { createPost , updatePost } from "../../actions/posts"; // actions/posts.js 
 
 import useStyles from "./styles"; // styles.js
 
-const Form = () => {
+
+
+
+
+const Form = ({ currentId, setCurrentId}) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -14,13 +18,21 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
+  const post =useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null); // useSelector hook
   const classes = useStyles(); // useStyles hook
   const dispatch = useDispatch(); // useDispatch hook
+  useEffect( () => {
+    if(post) setPostData(post);
+  }, [post])
 
   const handlefunction = (e) => {
     e.preventDefault(); // prevent the page from refreshing
-    dispatch(createPost(postData)); // dispatch the createPost action
-    
+   
+    if (currentId) {
+      dispatch(updatePost(currentId, postData)); // dispatch the createPost action
+    } else {
+      dispatch(createPost(postData)); // dispatch the createPost action
+    }
   };
   const clear = () => {
     console.log("clear");
