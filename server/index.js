@@ -13,6 +13,8 @@ app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
+
+// 이부분 한번더 확인하고 공부할것... 왜 postRoutes를 사용하는지.. import하지않는데 어떻게 사용하는지..
 app.use('/posts', postRoutes);
 
 
