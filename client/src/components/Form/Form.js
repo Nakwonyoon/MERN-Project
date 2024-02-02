@@ -30,6 +30,10 @@ const Form = ({ currentId, setCurrentId}) => {
     e.preventDefault(); // prevent the page from refreshing
    
     if (currentId) {
+      if(postData.creator === "" || postData.title === "" || postData.message === "" || postData.tags === "" || postData.selectedFile === "") {
+        alert("Please fill all the fields");
+        return;
+      }
       dispatch(updatePost(currentId, postData)); // dispatch the createPost action
       
     } else {
