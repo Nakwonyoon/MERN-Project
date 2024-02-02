@@ -23,14 +23,14 @@ const App = () => {
     return (
         <Container maxwidth="lg" style={{
             backgroundImage: `url(${background})`,
-            backgroundRepeat: 'no-repeat',
+            backgroundRepeat: 'repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             minHeight: '100vh',
             minWidth: '100vw',
         
         }}>
-            <AppBar className={classes.appBar} position="static" color="inherit">
+            <AppBar className={classes.appBar} position="static" color="inherit" style={{opacity: 0.7}}>
                 <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
                 <img className={classes.image}src = {memories} alt="memories" height="60" />
             </AppBar>
